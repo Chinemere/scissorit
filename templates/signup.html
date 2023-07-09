@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %} Register {% endblock %}
+
+{% block content %} 
+
+<div class="container">
+    <div class="row justify-content-center">
+    <div class="col-md-5">
+     <div class="card">
+       <h2 class="card-title text-center">Register </h2>
+        <div class="card-body py-md-4">
+         
+         <form _lpchecked="1" action="{{url_for('signup')}}" method="POST">
+            <div class="form-group">
+                
+             <div class="form-group">
+               <input type="text" class="form-control" id="name" placeholder="Username" name="username" required>
+               
+            </div>
+
+         
+          <div class="form-group">
+               <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+               
+        </div>  
+                           
+                            
+     <div class="form-group">
+       <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+     </div>
+     <div class="form-group">
+        <input type="password" class="form-control" id="confirm-password" placeholder="confirm-password" name="confirm_password" required>
+     </div>
+     <div class="d-flex flex-row align-items-center justify-content-between">
+        <a href="">Login</a>
+        <button type="submit" name="create_account" class="btn btn-primary">Create Account</button>
+            </div>
+         </div>
+
+         </form>
+
+
+         {% with messages = get_flashed_messages() %}
+               {% if messages %}
+                  {% for msg in messages %}
+                  <div class="alert alert-danger mb-3 d-flex justify-content-center " role="alert">
+                  *{{msg}}
+               </div>
+                  {% endfor %}
+                  {% endif %}
+               {% endwith %}
+
+       </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+{% endblock %}
