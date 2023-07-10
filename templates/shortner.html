@@ -12,20 +12,7 @@
         <input type="submit">
       </div>
     </form>
-    {% if new_url %}
-      
-      <p> short link: <a href="{{ url_for('redirectUrl', new_url=new_url.scissored_url)}}">{{ new_url.scissored_url }} </a> </p>
-      <p> {{ new_url.clicks }} </p>
-      <p> {{ new_url.created_at }} </p>
-        
-    {% endif %}
-
-    {% if url_record %}     
-      <p>  short link: <a href="{{ url_for('redirectUrl', new_url=new_url.scissored_url)}}"></a> {{ url_record.scissored_url }} </p>
-      <p> {{ url_record.clicks }} </p>
-      <p> {{ url_record.created_at }} </p>
-    {% endif %}
-
+   
    <h1> Do you want to customise your link? </h1>
     <form method="POST" action="{{url_for('customLink')}}">
       <div class="mb-3">
@@ -38,17 +25,19 @@
         </div>
       </form>
       {% if new_url %}
-      
+      <p>Link Source : {{link_analysis[0]  }} </p>
       <p> short link: <a href="{{ url_for('redirectUrl', new_url=new_url.scissored_url)}}">{{ new_url.scissored_url }} </a> </p>
-      <p> {{ new_url.clicks }} </p>
-      <p> {{ new_url.created_at }} </p>
+      <p> CLicks: {{ link_analysis[3] }} </p>
+      <p>  Time Created: {{ link_analysis[2] }} </p>
         
     {% endif %}
 
-    {% if url_record  and customise %}     
+    {% if url_record  and customise %} 
+      <p>Link Source : {{ link_analysis[0] }} </p>    
       <p>  short link: <a href="{{ url_for('redirectUrl', new_url=new_url.scissored_url)}}"></a> {{ url_record.scissored_url }} </p>
-      <p> {{ url_record.clicks }} </p>
-      <p> {{ url_record.created_at }} </p>
+      <p> CLicks: {{ link_analysis[3] }} </p>
+      <p>  Time Created: {{ link_analysis[2] }} </p>
+
     {% endif %}
 
 
