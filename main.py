@@ -23,6 +23,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_ECHO'] = True
     app.config["SECRET_KEY"] = '610bfa45622661aec39efc1a656971a92995074f39e3e69b05a60873287c5ac1'
     #postgres://scissorit:ggpNlia06yeRNmg13aZONp6ZFs95aFCG@dpg-cilc0llph6eg6k8e1lf0-a.oregon-postgres.render.com/scissorit_database
     db.init_app(app)
