@@ -13,6 +13,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 import os
 from models import User, Url
 from application_functions import analytics
+from decouple import config
 
 basedir= os.path.abspath(os.path.dirname(__file__))
 
@@ -20,11 +21,12 @@ basedir= os.path.abspath(os.path.dirname(__file__))
 def create_app():
     app= Flask(__name__)
     # app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///' + os.path.join(basedir, 'database.db')
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+    app.config['SQLALCHEMY_DATABASE_URI'] = config("DATABASE_URL")
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = True
     app.config["SECRET_KEY"] = '610bfa45622661aec39efc1a656971a92995074f39e3e69b05a60873287c5ac1'
+    # postgres://scissorit:ggpNlia06yeRNmg13aZONp6ZFs95aFCG@dpg-cilc0llph6eg6k8e1lf0-a/scissorit_database
     #postgres://scissorit:ggpNlia06yeRNmg13aZONp6ZFs95aFCG@dpg-cilc0llph6eg6k8e1lf0-a.oregon-postgres.render.com/scissorit_database
     db.init_app(app)
 
