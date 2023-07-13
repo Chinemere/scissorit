@@ -12,7 +12,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import os
 from models import User, Url
-from application_functions import analytics
+from application_functions import analytics, linkhistory
 from decouple import config
 
 basedir= os.path.abspath(os.path.dirname(__file__))
@@ -25,7 +25,7 @@ def create_app():
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = True
-    app.config["SECRET_KEY"] = '610bfa45622661aec39efc1a656971a92995074f39e3e69b05a60873287c5ac1'
+    app.config["SECRET_KEY"] = config('SECRET_KEY')
     # postgres://scissorit:ggpNlia06yeRNmg13aZONp6ZFs95aFCG@dpg-cilc0llph6eg6k8e1lf0-a/scissorit_database
     #postgres://scissorit:ggpNlia06yeRNmg13aZONp6ZFs95aFCG@dpg-cilc0llph6eg6k8e1lf0-a.oregon-postgres.render.com/scissorit_database
     db.init_app(app)
@@ -117,7 +117,8 @@ def shortner():
         #Check if the url is already in the database
         if url_record:
             link_analysis = analytics(url_record.scissored_url)
-            return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis)
+            linklist = linkhistory()
+            return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis, linklist=linklist)
         
         short_url = Url.create_short_url(randint(4, 6))
         short_url_http = "scissorit/"+ short_url
@@ -125,8 +126,9 @@ def shortner():
         new_url = Url(url_source=url_source, scissored_url=short_url_http, user=username.id)
         new_url.save()
         link_analysis = analytics(short_url_http)
+        linklist = linkhistory()
 
-        return render_template('shortner.html', new_url=new_url, link_analysis=link_analysis)
+        return render_template('shortner.html', new_url=new_url, link_analysis=link_analysis, linklist=linklist)
 
     return render_template('shortner.html')
 
@@ -143,7 +145,8 @@ def customLink():
         username = User.query.filter_by(username=userIdentity).first()
         if url_record:
             link_analysis = analytics(url_record.scissored_url)
-            return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis)
+            linklist = linkhistory()
+            return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis, linklist=linklist)
         
         short_url = Url.create_custom_url(custom_name)
         short_url_http = "scissorit/"+ short_url
@@ -151,8 +154,9 @@ def customLink():
         new_url = Url(url_source=url_source, scissored_url=short_url_http, user=username.id)
         new_url.save()
         link_analysis = analytics(short_url_http)
+        linklist = linkhistory()
 
-        return render_template('shortner.html', new_url=new_url, customise=customise, link_analysis=link_analysis)
+        return render_template('shortner.html', new_url=new_url, customise=customise, link_analysis=link_analysis, linklist=linklist)
 
 
 @app.route('/redirect/<path:new_url>')
@@ -170,6 +174,7 @@ def logout():
     logout = logout_user()
     flash('you have successfully logged out. Login to Create More Links', 'info')
     return render_template('login.html')
+
 
 
 
