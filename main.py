@@ -25,7 +25,7 @@ def create_app():
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = True
-    app.config["SECRET_KEY"] = config('SECRET_KEY')
+    app.config["SECRET_KEY"] = config('SECRET_KEY', 'secrete_keys')
     # postgres://scissorit:ggpNlia06yeRNmg13aZONp6ZFs95aFCG@dpg-cilc0llph6eg6k8e1lf0-a/scissorit_database
     #postgres://scissorit:ggpNlia06yeRNmg13aZONp6ZFs95aFCG@dpg-cilc0llph6eg6k8e1lf0-a.oregon-postgres.render.com/scissorit_database
     db.init_app(app)
