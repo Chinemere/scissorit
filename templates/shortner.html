@@ -32,10 +32,10 @@
 
       <h1>Link history</h1>
       {% for links in linklist %}
-      <h4>Link Source : {{ linklist[0]['url_source'] }}<br>
-       Short Link: {{ linklist[1]['scissored_url'] }} <br>
-       Number of Clicks : {{ linklist[2]['clicks'] }} <br>
-       Date Created :{{  linklist[3]['created_at'] }}
+      <h4>Link Source : {{ links['url_source'] }}<br>
+       Short Link: {{ links['scissored_url'] }} <br>
+       Number of Clicks : {{ links['clicks'] }} <br>
+       Date Created :{{  links['created_at'] }}
       </h4>
       {% endfor %}
         
