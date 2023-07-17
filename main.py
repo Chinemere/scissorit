@@ -117,8 +117,7 @@ def shortner():
         #Check if the url is already in the database
         if url_record:
             link_analysis = analytics(url_record.scissored_url)
-            linklist = linkhistory()
-            return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis, linklist=linklist)
+            return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis)
         
         short_url = Url.create_short_url(randint(4, 6))
         short_url_http = "scissorit/"+ short_url
@@ -126,9 +125,8 @@ def shortner():
         new_url = Url(url_source=url_source, scissored_url=short_url_http, user=username.id)
         new_url.save()
         link_analysis = analytics(short_url_http)
-        linklist = linkhistory()
 
-        return render_template('shortner.html', new_url=new_url, link_analysis=link_analysis, linklist=linklist)
+        return render_template('shortner.html', new_url=new_url, link_analysis=link_analysis)
 
     return render_template('shortner.html')
 
@@ -145,8 +143,7 @@ def customLink():
         username = User.query.filter_by(username=userIdentity).first()
         if url_record:
             link_analysis = analytics(url_record.scissored_url)
-            linklist = linkhistory()
-            return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis, linklist=linklist)
+            return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis)
         
         short_url = Url.create_custom_url(custom_name)
         short_url_http = "scissorit/"+ short_url
@@ -154,9 +151,8 @@ def customLink():
         new_url = Url(url_source=url_source, scissored_url=short_url_http, user=username.id)
         new_url.save()
         link_analysis = analytics(short_url_http)
-        linklist = linkhistory()
 
-        return render_template('shortner.html', new_url=new_url, customise=customise, link_analysis=link_analysis, linklist=linklist)
+        return render_template('shortner.html', new_url=new_url, customise=customise, link_analysis=link_analysis)
 
 
 @app.route('/redirect/<path:new_url>')
@@ -175,6 +171,10 @@ def logout():
     flash('you have successfully logged out. Login to Create More Links', 'info')
     return render_template('login.html')
 
+@app.route('/linkhistories')
+def linkhistories():
+    linklist = linkhistory()
+    return render_template('linkhistory.html', linklist=linklist)
 
 
 

@@ -18,6 +18,7 @@ def analytics(short_url):
 def linkhistory():
     username = current_user.username
     user = User.query.filter_by(username=username).first()
+
     user_links = user.url
     all_links = []
     for link in user_links:

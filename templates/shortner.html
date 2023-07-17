@@ -29,25 +29,17 @@
       <p> short link: <a href="{{ url_for('redirectUrl', new_url=new_url.scissored_url)}}">{{ new_url.scissored_url }} </a> </p>
       <p> Clicks: {{ link_analysis[3] }} </p>
       <p>  Time Created: {{ link_analysis[2] }} </p>
-
-      <h1>Link history</h1>
-      {% for links in linklist %}
-      <h4>Link Source : {{ links['url_source'] }}<br>
-       Short Link: {{ links['scissored_url'] }} <br>
-       Number of Clicks : {{ links['clicks'] }} <br>
-       Date Created :{{  links['created_at'] }}
-      </h4>
-      {% endfor %}
-        
-    {% endif %}
-
+      {% endif %}
+      
     {% if url_record  and customise %} 
       <p>Link Source : {{ link_analysis[0] }} </p>    
-      <p>  short link: <a href="{{ url_for('redirectUrl', new_url=new_url.scissored_url)}}"></a> {{ url_record.scissored_url }} </p>
-      <p> CLicks: {{ link_analysis[3] }} </p>
+      <p>  Short link: <a href="{{ url_for('redirectUrl', new_url=new_url.scissored_url)}}"> {{ url_record.scissored_url }} </a> </p>
+      <p> Clicks: {{ link_analysis[3] }} </p>
       <p>  Time Created: {{ link_analysis[2] }} </p>
 
     {% endif %}
+
+  <a href="{{url_for('linkhistories')}}"><button class="btn btn-primary">Get your Link History Here</button></a>
 
     
 

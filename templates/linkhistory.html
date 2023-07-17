@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %} Your Link History {% endblock %}
+{% block content %} 
+
+<h1>Link history</h1>
+      {% for links in linklist %}
+      <h4>Link Source : {{ links['url_source'] }}<br>
+       Short Link: {{ links['scissored_url'] }} <br>
+       Number of Clicks : {{ links['clicks'] }} <br>
+       Date Created :{{  links['created_at'] }}
+      </h4>
+      {% endfor %}
+        
+
+
+
+
+
+
+
+{% endblock %}
