@@ -82,8 +82,8 @@ def signup():
             return redirect(url_for("shortner"))
         passwordharsh = generate_password_hash(password)
         new_user = User(username=username, email=email, passwordHash=passwordharsh ) 
-        login_user(new_user)
         new_user.save()
+        login_user(new_user)
         
         return redirect(url_for('shortner'))
     return render_template('signup.html')
