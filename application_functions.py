@@ -1,5 +1,8 @@
 from models import Url, User
 from flask_login import current_user
+import qrcode
+import os
+
 
 
 def analytics(short_url):
@@ -36,6 +39,18 @@ def linkhistory():
         }
         all_links.append(link_info)
         
-
     return all_links
 
+
+# code to generate qrcode
+def generate_qr_code(url):
+    qr = qrcode.QRCode(
+          version = 1,
+          error_correction=qrcode.constants.ERROR_CORRECT_M,
+          box_size=10,
+          border=4,
+          )
+    qr.add_data(url)
+    qr.make(fit=True)
+    qr_image = qr.make_image(fill_color="black", back_color="white")
+    return qr_image

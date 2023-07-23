@@ -12,8 +12,9 @@ from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import os
 from models import User, Url
-from application_functions import analytics, linkhistory
+from application_functions import analytics, linkhistory, generate_qr_code
 from decouple import config
+import re
 
 basedir= os.path.abspath(os.path.dirname(__file__))
 
@@ -116,8 +117,22 @@ def shortner():
         
         #Check if the url is already in the database
         if url_record:
+            # display  link analysis
             link_analysis = analytics(url_record.scissored_url)
-            return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis)
+            # the output of the scissored_url has a pattern like this - "scissorit/ujpoj...   i.e there is always scissorit/ before the name short strings"
+            # so use regex to sort out the scissored_url in other to get only the string after the forward slash, i.e to get only "ujpoj" out of "scissorit/ujpoj"
+            pattern = r"/([a-zA-Z0-9]+)"
+            text = url_record.scissored_url
+            pattern_match = re.findall(pattern, text)
+            convert_patter_match_to_string= str(pattern_match[0])
+            short_url=convert_patter_match_to_string
+            if os.path.exists(f"static/images/{short_url}.png"):
+                return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis, short_url=short_url )
+            # create a qr code
+            qr_code_image = generate_qr_code(url_record.scissored_url)
+            images_folder = os.path.join(app.root_path, 'static', 'images')
+            qr_code_image.save(os.path.join(images_folder, short_url+'.png'))
+            return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis, short_url=short_url )
         
         short_url = Url.create_short_url(randint(4, 6))
         short_url_http = "scissorit/"+ short_url
@@ -125,8 +140,10 @@ def shortner():
         new_url = Url(url_source=url_source, scissored_url=short_url_http, user=username.id)
         new_url.save()
         link_analysis = analytics(short_url_http)
-
-        return render_template('shortner.html', new_url=new_url, link_analysis=link_analysis)
+        qr_code_image = generate_qr_code(short_url_http)
+        images_folder = os.path.join(app.root_path, 'static', 'images')
+        qr_code_image.save(os.path.join(images_folder, short_url+'.png'))
+        return render_template('shortner.html', new_url=new_url, link_analysis=link_analysis, short_url=short_url)
 
     return render_template('shortner.html')
 
@@ -138,21 +155,39 @@ def customLink():
         custom_name = request.form.get('custom_name')
         if not url_source.startswith('http://') and not url_source.startswith('https://'):
                 url_source =  "http://" + url_source
-        url_record = Url.query.filter_by(scissored_url=url_source).first()
+        url_record = Url.query.filter_by(url_source=url_source).first()
         userIdentity = current_user.username
         username = User.query.filter_by(username=userIdentity).first()
         if url_record:
+             # display  link analysis
             link_analysis = analytics(url_record.scissored_url)
-            return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis)
+            # the output of the scissored_url has a pattern like this - "scissorit/ujpoj...   i.e there is always scissorit/ before the name short strings"
+            # so use regex to sort out the scissored_url in other to get only the string after the forward slash, i.e to get only "ujpoj" out of "scissorit/ujpoj"
+            pattern = r"/([a-zA-Z0-9]+)"
+            text = url_record.scissored_url
+            pattern_match = re.findall(pattern, text)
+            convert_patter_match_to_string= str(pattern_match[0])
+            short_url=convert_patter_match_to_string
+            if os.path.exists(f"static/images/{short_url}.png"):
+                return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis, short_url=short_url )
+            # create a qr code
+            qr_code_image = generate_qr_code(url_record.scissored_url)
+            images_folder = os.path.join(app.root_path, 'static', 'images')
+            qr_code_image.save(os.path.join(images_folder, short_url+'.png'))
+            return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis, short_url=short_url)
         
+
         short_url = Url.create_custom_url(custom_name)
         short_url_http = "scissorit/"+ short_url
         customise= True
         new_url = Url(url_source=url_source, scissored_url=short_url_http, user=username.id)
         new_url.save()
         link_analysis = analytics(short_url_http)
+        qr_code_image = generate_qr_code(short_url_http)
+        images_folder = os.path.join(app.root_path, 'static', 'images')
+        qr_code_image.save(os.path.join(images_folder, short_url+'.png'))
 
-        return render_template('shortner.html', new_url=new_url, customise=customise, link_analysis=link_analysis)
+        return render_template('shortner.html', new_url=new_url, customise=customise, link_analysis=link_analysis, short_url=short_url)
 
 
 @app.route('/redirect/<path:new_url>')

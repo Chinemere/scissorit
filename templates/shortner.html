@@ -29,6 +29,8 @@
       <p> short link: <a href="{{ url_for('redirectUrl', new_url=new_url.scissored_url)}}">{{ new_url.scissored_url }} </a> </p>
       <p> Clicks: {{ link_analysis[3] }} </p>
       <p>  Time Created: {{ link_analysis[2] }} </p>
+      <p>Scan your QR code here: <br>
+        <img src="{{ url_for('static', filename='images/' + short_url + '.png') }}" alt="QR Code"></p>
       {% endif %}
       
     {% if url_record  and customise %} 
@@ -36,6 +38,8 @@
       <p>  Short link: <a href="{{ url_for('redirectUrl', new_url=new_url.scissored_url)}}"> {{ url_record.scissored_url }} </a> </p>
       <p> Clicks: {{ link_analysis[3] }} </p>
       <p>  Time Created: {{ link_analysis[2] }} </p>
+      <p>Scan your QR code here: <br>
+        <img src="{{ url_for('static', filename='images/'+ short_url + '.png') }}" alt="QR Code"></p>
 
     {% endif %}
 
