@@ -2,21 +2,22 @@
 
 {% block content %}
 
-    <div class="container">
+
+    <div class=" index">
         <!-- Content here -->
       
     
     <div class="mb-3">
-        <h1>Introducing ShortenIt - The Ultimate URL Shortening Solution!</h1>
+        <h1 class="display-1 text-white "  >Introducing <em class="text-warning">ShortenIt</em> - <br> The Ultimate URL Shortening Solution!</h1>
         <br>
-        <h3> Looking to make your long and complicated URLs shorter, sweeter, and more effective? 
+        <h3 class=" text-white looking"> Looking to make your long and complicated URLs shorter, sweeter, and more effective? 
           Look no further! With ShortenIt, our cutting-edge URL shortening application,
           you can transform your lengthy web addresses into concise, impactful links with just a click.</h3>
       </div>
 
       <div>
-        <a href="{{ url_for('signup')}}" class="btn"><button class="btn btn-primary">Sign Up</button></a>
-        <a href="{{ url_for('login')}}" class="btn"><button class="btn btn-primary">Login</button></a>
+        <a href="{{ url_for('signup')}}" class="btn btn-warning "><button type="button" class="btn btn-warning text-white signupbtn ">Sign Up</button></a>
+        <!-- <a href="{{ url_for('login')}}" class="btn"><button class="btn btn-primary">Login</button></a> -->
       </div>
     
     {% if button_clicked %}

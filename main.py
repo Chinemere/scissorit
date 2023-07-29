@@ -135,14 +135,15 @@ def shortner():
             return render_template('shortner.html', new_url=url_record, link_analysis=link_analysis, short_url=short_url )
         
         short_url = Url.create_short_url(randint(4, 6))
-        short_url_http = "scissorit/"+ short_url
+        short_url_http = "http://127.0.0.1:8000/scissorit/"+ short_url
         
         new_url = Url(url_source=url_source, scissored_url=short_url_http, user=username.id)
         new_url.save()
         link_analysis = analytics(short_url_http)
-        qr_code_image = generate_qr_code(short_url_http)
+        qr_code_image = generate_qr_code(url_source)
         images_folder = os.path.join(app.root_path, 'static', 'images')
         qr_code_image.save(os.path.join(images_folder, short_url+'.png'))
+        # base_url= "http://127.0.0.1:8000/"
         return render_template('shortner.html', new_url=new_url, link_analysis=link_analysis, short_url=short_url)
 
     return render_template('shortner.html')
