@@ -8,40 +8,61 @@
     <form method="POST" action="{{url_for('shortner')}}">
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Past Your Long Link Here</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Paste your link here" name="url_source">
-        <input type="submit">
+        <input type="text" class="form-control shorten" id="exampleFormControlInput1" placeholder="Paste your link here" name="url_source"><br>
+        <input type="submit" value="shorten It" class="btn btn-warning">
       </div>
     </form>
+
+    <!--         <a href="{{ url_for('signup')}}" class="btn btn-warning "><button type="button" class="btn btn-warning text-white signupbtn ">Sign Up</button></a>
+ -->
    
    <h1> Do you want to customise your link? </h1>
     <form method="POST" action="{{url_for('customLink')}}">
       <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Past Your Long Link Here</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Paste your link here" name="custom_url_source">
+          <input type="text" class="form-control shorten" id="exampleFormControlInput1" placeholder="Paste your link here" name="custom_url_source">
           <label for="exampleFormControlInput1" class="form-label">Type your Custom name here</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Type your Custome name here" name="custom_name">
+          <input type="text" class="form-control shorten" id="exampleFormControlInput1" placeholder="Type your Custome name here" name="custom_name"><br>
 
-          <input type="submit">
+          <input type="submit" value="shorten it" class="btn btn-warning">
         </div>
       </form>
       {% if new_url %}
-      <p>Link Source : {{link_analysis[0]  }} </p>
+      <div class="links">
+      <p>Link Source :  {{link_analysis[0]  }} </p>
       <p> short link: <a href="{{ url_for('redirectUrl', new_url=new_url.scissored_url)}}">{{ new_url.scissored_url }} </a> </p>
       <p> Clicks: {{ link_analysis[3] }} </p>
       <p>  Time Created: {{ link_analysis[2] }} </p>
       <p>Scan your QR code here: <br>
         <img src="{{ url_for('static', filename='images/' + short_url + '.png') }}" alt="QR Code"></p>
+        </div>
       {% endif %}
       
     {% if url_record  and customise %} 
-      <p>Link Source : {{ link_analysis[0] }} </p>    
-      <p>  Short link: <a href="{{ url_for('redirectUrl', new_url=new_url.scissored_url)}}"> {{ url_record.scissored_url }} </a> </p>
-      <p> Clicks: {{ link_analysis[3] }} </p>
-      <p>  Time Created: {{ link_analysis[2] }} </p>
-      <p>Scan your QR code here: <br>
-        <img src="{{ url_for('static', filename='images/'+ short_url + '.png') }}" alt="QR Code"></p>
-
+      <div class="links">
+      <p class="">Link Source :  {{ link_analysis[0] }} </p>    
+      <p class="">  Short link: <a href="{{ url_for('redirectUrl', new_url=new_url.scissored_url)}}" class="btn btn-primary"> {{ url_record.scissored_url }} </a> </p>
+      <p class=""> Clicks: {{ link_analysis[3] }} </p>
+      <p class="">  Time Created: {{ link_analysis[2] }} </p>
+      <p class="">Scan your QR code here: <br>
+        <img src="{{ url_for('static', filename='images/'+ short_url + '.png') }}" alt="QR Code" class=""></p>
+      </div>
     {% endif %}
+
+
+
+
+    <!-- <div class="card" style="width: 18rem;">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div> -->
+
+
+
 
   <a href="{{url_for('linkhistories')}}"><button class="btn btn-primary">Get your Link History Here</button></a>
 

@@ -24,4 +24,42 @@ body{
     max-width: 700px;
     margin-bottom: 50px;
 }
+.welcome{
+    color : #dfe3fa
+}
+.main-content2{
+    color: #e7e7e7;
+}
 
+ input[type='text'].shorten{
+    background-color: #ffffff;
+    max-width: 600px;
+    height: 70px;
+    border: none;
+    outline: none;
+    padding: 0 25px;
+    border-radius: 25px 25px 25px 25px;
+    font-size: 16px;
+}
+.links{
+    min-width: 100% ;
+    min-height: 100px;
+    background-color: #ffffe6;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2); 
+    padding: 30px;
+    margin-bottom: 30px;
+}
+.links p{
+    font-size: 16px;
+    font-weight: 900;
+    color: #4b4b4b;
+}
+
+.linkhist{
+    min-width: 100% ;
+    min-height: 100px;
+    background-color: #ffffe6;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    margin-bottom: 40px;
+}

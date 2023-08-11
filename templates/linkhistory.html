@@ -2,16 +2,20 @@
 {% block title %} Your Link History {% endblock %}
 {% block content %} 
 
+<div class="container">
 <h1>Link history</h1>
+      
       {% for links in linklist %}
-      <h4>Link Source : {{ links['url_source'] }}<br>
-       Short Link: {{ links['scissored_url'] }} <br>
-       Number of Clicks : {{ links['clicks'] }} <br>
-       Date Created :{{  links['created_at'] }}
-      </h4>
+      <div class="linkhist">
+      <p>Link Source : {{ links['url_source'] }}</p>
+      <p>Short Link: {{ links['scissored_url'] }} </p>
+      <p> Number of Clicks : {{ links['clicks'] }} </p>
+      <p> Date Created :{{  links['created_at'] }} </p>
+      </div>
       {% endfor %}
+      
         
-
+</div>
 
 
 

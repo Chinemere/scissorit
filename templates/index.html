@@ -3,9 +3,17 @@
 {% block content %}
 
 
+<h2 class="text-center main-content2 ">
+  <span class="welcome">WELCOME TO ScissorIt </span> <br><br>
+  Where Long Links Find Their Perfect Fit!
+
+</h2> 
+
+
     <div class=" index">
         <!-- Content here -->
       
+        
     
     <div class="mb-3">
         <h1 class="display-1 text-white "  >Introducing <em class="text-warning">ShortenIt</em> - <br> The Ultimate URL Shortening Solution!</h1>
@@ -17,7 +25,7 @@
 
       <div>
         <a href="{{ url_for('signup')}}" class="btn btn-warning "><button type="button" class="btn btn-warning text-white signupbtn ">Sign Up</button></a>
-        <!-- <a href="{{ url_for('login')}}" class="btn"><button class="btn btn-primary">Login</button></a> -->
+        <a href="{{ url_for('login')}}" class="btn btn-warning"><button type="button" class="btn btn-info text-white signupbtn">Login</button></a>
       </div>
     
     {% if button_clicked %}
